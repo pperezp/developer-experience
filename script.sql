@@ -30,16 +30,18 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE getTablaNiveles()
 BEGIN
+	DECLARE dificultad INT;
+    SET dificultad = 3; -- base del logaritmo
 	SELECT 
 		nombre, 
 		puntos, 
-		FLOOR(LOG(10, puntos)) AS 'nivel',
-        ROUND(LOG(10, puntos),2) - FLOOR(ROUND(LOG(10, puntos),2)) AS 'progress' -- Progreso en porcentaje para pintar en HTML
+		FLOOR(LOG(dificultad, puntos)) AS 'nivel',
+        ROUND(LOG(dificultad, puntos),2) - FLOOR(ROUND(LOG(dificultad, puntos),2)) AS 'progress' -- Progreso en porcentaje para pintar en HTML
 	FROM 
 		alumno 
 	WHERE 
 		puntos > 0
-	ORDER BY LOG(10, puntos) DESC;
+	ORDER BY LOG(2, puntos) DESC;
 END $$
 DELIMITER ; 
 -- drop procedure getTablaNiveles;

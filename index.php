@@ -8,8 +8,8 @@
     </head>
     <body>
         <form action="controller/regPuntos.php" method="post">
-            <input list="nombres" name="nombre" placeholder="Nombre:">
-            <input type="number" name="puntos" placeholder="Puntos:">
+            <input list="nombres" name="nombre" placeholder="Nombre:" require>
+            <input type="number" name="puntos" placeholder="Puntos:" require>
             <input type="submit" value="Asignar Puntos">
 
             <datalist id="nombres">
@@ -30,6 +30,8 @@
                 <th>Nombre</th>
                 <th>Puntos</th>
                 <th>Programador nivel</th>
+                <th colspan="3">(+)</th>
+                <th colspan="3">(-)</th>
             </tr>
 
             <?php 
@@ -39,6 +41,53 @@
                     <td><?php echo $dn->puntos; ?></td>
                     <td>
                         Nivel <?php echo $dn->nivel; ?><progress value="<?php echo $dn->progress; ?>" max="1"></progress>
+                    </td>
+                    <td>
+                        <form action="controller/regPuntos.php" method="post">
+                            <input type="hidden" name="nombre" value='<?php echo $dn->nombre;?>'>
+                            <input type="hidden" name="puntos" value='1'>
+                            <input type="submit" value="+1">
+                        </form>
+                    </td>
+
+                    <td>
+                        <form action="controller/regPuntos.php" method="post">
+                            <input type="hidden" name="nombre" value='<?php echo $dn->nombre;?>'>
+                            <input type="hidden" name="puntos" value='5'>
+                            <input type="submit" value="+5">
+                        </form>
+                    </td>
+                    
+                    <td>
+                        <form action="controller/regPuntos.php" method="post">
+                            <input type="hidden" name="nombre" value='<?php echo $dn->nombre;?>'>
+                            <input type="hidden" name="puntos" value='10'>
+                            <input type="submit" value="+10 ">
+                        </form>
+                    </td>
+
+                    <td>
+                        <form action="controller/regPuntos.php" method="post">
+                            <input type="hidden" name="nombre" value='<?php echo $dn->nombre;?>'>
+                            <input type="hidden" name="puntos" value='-1'>
+                            <input type="submit" value="-1">
+                        </form>
+                    </td>
+
+                    <td>
+                        <form action="controller/regPuntos.php" method="post">
+                            <input type="hidden" name="nombre" value='<?php echo $dn->nombre;?>'>
+                            <input type="hidden" name="puntos" value='-5'>
+                            <input type="submit" value="-5">
+                        </form>
+                    </td>
+                    
+                    <td>
+                        <form action="controller/regPuntos.php" method="post">
+                            <input type="hidden" name="nombre" value='<?php echo $dn->nombre;?>'>
+                            <input type="hidden" name="puntos" value='-10'>
+                            <input type="submit" value="-10 ">
+                        </form>
                     </td>
                 </tr>    
             <?php } ?>
