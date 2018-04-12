@@ -33,13 +33,13 @@ BEGIN
 	SELECT 
 		nombre, 
 		puntos, 
-		FLOOR(LOG(puntos)) AS 'nivel',
-        ROUND(LOG(puntos),2) - FLOOR(ROUND(LOG(puntos),2)) AS 'progress' -- Progreso en porcentaje para pintar en HTML
+		FLOOR(LOG(10, puntos)) AS 'nivel',
+        ROUND(LOG(10, puntos),2) - FLOOR(ROUND(LOG(10, puntos),2)) AS 'progress' -- Progreso en porcentaje para pintar en HTML
 	FROM 
 		alumno 
 	WHERE 
 		puntos > 0
-	ORDER BY LOG(puntos) DESC;
+	ORDER BY LOG(10, puntos) DESC;
 END $$
 DELIMITER ; 
 -- drop procedure getTablaNiveles;
@@ -47,6 +47,7 @@ DELIMITER ;
 CALL addPuntos('Jose Donoso', 1);
 CALL getTablaNiveles();
 
+SELECT log(10,2)
 
 
 
