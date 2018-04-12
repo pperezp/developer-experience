@@ -38,7 +38,7 @@ BEGIN
 	FROM 
 		alumno 
 	WHERE 
-		puntos != 0
+		puntos > 0
 	ORDER BY LOG(puntos) DESC;
 END $$
 DELIMITER ; 
