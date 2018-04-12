@@ -61,14 +61,31 @@ class Data{
         return $alumnos;
     }
 
-    public function crearAlumno($alumno){
+    public function crearAlumno($nombre){
         $this->c->conectar();
-
-        $this->c->ejecutar("INSERT INTO alumno VALUES(NULL, '".$alumno->getNombre()."','0')");
-
+        $this->c->ejecutar("INSERT INTO alumno VALUES(NULL, '$nombre','0')");
         $this->c->desconectar();
     }
 
+    public function addPuntos($nombre, $puntos){
+        $this->c->conectar();
+        $this->c->ejecutar("CALL addPuntos('$nombre', $puntos);");
+        $this->c->desconectar();
+    }
     
+    public function getTablaNiveles(){
+        $lista = array();
+        $this->c->conectar();
+        $rs = $this->c->ejecutar("CALL getTablaNiveles();");
+
+        while($obj = $rs->fetch_object()){
+            array_push($lista, $obj);
+        }
+
+        $this->c->desconectar();
+
+        return $lista;  
+    }
+
 }
 ?>

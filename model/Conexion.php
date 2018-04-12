@@ -8,7 +8,7 @@ class Conexion{
     public function __construct($bdName){
         $this->bdName = $bdName;
         $this->user = "root";
-        $this->pass = "";
+        $this->pass = "123456";
     }
 
     public function conectar(){
