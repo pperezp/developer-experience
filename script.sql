@@ -40,7 +40,7 @@ BEGIN
 	FROM 
 		alumno 
 	WHERE 
-		puntos > 0
+		puntos >= 0
 	ORDER BY LOG(2, puntos) DESC;
 END $$
 DELIMITER ; 
