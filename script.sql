@@ -39,15 +39,37 @@ BEGIN
         ROUND(LOG(dificultad, puntos),2) - FLOOR(ROUND(LOG(dificultad, puntos),2)) AS 'progress' -- Progreso en porcentaje para pintar en HTML
 	FROM 
 		alumno 
-	WHERE 
-		puntos >= 0
-	ORDER BY LOG(2, puntos) DESC;
+	/*WHERE 
+		puntos >= 0*/
+	ORDER BY puntos DESC;
 END $$
 DELIMITER ; 
 -- drop procedure getTablaNiveles;
 
+
+DELIMITER $$
+CREATE PROCEDURE getTop(top INT)
+BEGIN
+	DECLARE dificultad INT;
+    SET dificultad = 3; -- base del logaritmo
+	SELECT 
+		nombre, 
+		puntos, 
+		FLOOR(LOG(dificultad, puntos)) AS 'nivel',
+        ROUND(LOG(dificultad, puntos),2) - FLOOR(ROUND(LOG(dificultad, puntos),2)) AS 'progress' -- Progreso en porcentaje para pintar en HTML
+	FROM 
+		alumno 
+	/*WHERE 
+		puntos >= 0*/
+	ORDER BY puntos DESC
+    LIMIT top;
+END $$
+DELIMITER ; 
+-- drop procedure getTop;
+
 CALL addPuntos('Jose Donoso', 1);
 CALL getTablaNiveles();
+CALL getTop(3);
 
 SELECT log(10,2)
 

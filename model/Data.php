@@ -87,5 +87,19 @@ class Data{
         return $lista;  
     }
 
+    public function getTop($limite){
+        $lista = array();
+        $this->c->conectar();
+        $rs = $this->c->ejecutar("CALL getTop($limite);");
+
+        while($obj = $rs->fetch_object()){
+            array_push($lista, $obj);
+        }
+
+        $this->c->desconectar();
+
+        return $lista;  
+    }
+
 }
 ?>
