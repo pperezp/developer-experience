@@ -11,7 +11,7 @@
         $(document).ready(function(){
             $("#puntos").keyup(function(event){
                 if(event.which == 13){ // si es enter
-                    regPuntos();    
+                    registrarPuntos();    
                 }
             });
 
@@ -62,7 +62,8 @@
             }
         }
 
-        function regPuntos(){
+        /*Esta funcion se llama cuando presiono enter en los puntos de index*/
+        function registrarPuntos(){
             var nombre = $("#nombre").val();
             var puntos = $("#puntos").val();
 
@@ -81,8 +82,9 @@
             });
         }
 
+        /*Esta función se llama cuando presiono los botones pre establecidos.*/ 
         function regPuntos(nombre, puntos){
-
+            console.log("asdasd");
             $.ajax({
                 type: 'POST',
                 url: 'http://localhost/experience/controller/regPuntos.php',
@@ -100,7 +102,7 @@
         <h1>Developer Experience</h1>
         <form>
             <input list="nombres" id="nombre" placeholder="Nombre:" require>
-            <input type="number" id="puntos" placeholder="Puntos:" require>
+            <input type="number"  id="puntos" placeholder="Puntos:" require>
             <!-- <input type="button" value="Asignar Puntos" onclick="regPuntos()"> -->
 
             <datalist id="nombres">

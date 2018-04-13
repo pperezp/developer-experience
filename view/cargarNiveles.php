@@ -9,7 +9,8 @@ $d = new Data();
         <th colspan="3">(-)</th>
         <th>Nombre</th>
         <th>Puntos</th>
-        <th>Programador nivel</th>
+        <th>Nivel</th>
+        <th>Progreso</th>
         <th colspan="3">(+)</th>
     </tr>
 
@@ -39,8 +40,13 @@ $d = new Data();
             <td><?php echo $dn->nombre; ?></td>
             <td><?php echo $dn->puntos; ?></td>
             <td>
-                Nivel <?php echo ($dn->nivel == null?0:$dn->nivel); ?><progress value="<?php echo ($dn->progress == null?0:$dn->progress); ?>" max="1"></progress>
+                Nivel <?php echo ($dn->nivel == null?0:$dn->nivel); ?>
             </td>
+
+            <td>
+                <progress value="<?php echo ($dn->progress == null?0:$dn->progress); ?>" max="1"></progress>
+            </td>
+
             <td>
                 <input type="button" value="+1" onclick="regPuntos('<?php echo $nom ;?>', 1)">
             </td>
