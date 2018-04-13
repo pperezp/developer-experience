@@ -20,30 +20,21 @@ $d = new Data();
         $lista = $d->getTablaNiveles();
     }
 
-    foreach($lista as $dn){?>
+    foreach($lista as $dn){
+        $nom = $dn->nombre;
+        ?>
         <tr>
             <td>
-                <form action="controller/regPuntos.php" method="post">
-                    <input type="hidden" name="nombre" value='<?php echo $dn->nombre;?>'>
-                    <input type="hidden" name="puntos" value='-1'>
-                    <input type="submit" value="-1">
-                </form>
+            <!-- La función regPuntos está actualmente en index.php-->
+                <input type="button" value="-1" onclick="regPuntos('<?php echo $nom ;?>', -1)">
             </td>
 
             <td>
-                <form action="controller/regPuntos.php" method="post">
-                    <input type="hidden" name="nombre" value='<?php echo $dn->nombre;?>'>
-                    <input type="hidden" name="puntos" value='-5'>
-                    <input type="submit" value="-5">
-                </form>
+                <input type="button" value="-5" onclick="regPuntos('<?php echo $nom ;?>', -5)">
             </td>
             
             <td>
-                <form action="controller/regPuntos.php" method="post">
-                    <input type="hidden" name="nombre" value='<?php echo $dn->nombre;?>'>
-                    <input type="hidden" name="puntos" value='-10'>
-                    <input type="submit" value="-10 ">
-                </form>
+                <input type="button" value="-10" onclick="regPuntos('<?php echo $nom ;?>', -10)">
             </td>
             <td><?php echo $dn->nombre; ?></td>
             <td><?php echo $dn->puntos; ?></td>
@@ -51,27 +42,15 @@ $d = new Data();
                 Nivel <?php echo ($dn->nivel == null?0:$dn->nivel); ?><progress value="<?php echo ($dn->progress == null?0:$dn->progress); ?>" max="1"></progress>
             </td>
             <td>
-                <form action="controller/regPuntos.php" method="post">
-                    <input type="hidden" name="nombre" value='<?php echo $dn->nombre;?>'>
-                    <input type="hidden" name="puntos" value='1'>
-                    <input type="submit" value="+1">
-                </form>
+                <input type="button" value="+1" onclick="regPuntos('<?php echo $nom ;?>', 1)">
             </td>
 
             <td>
-                <form action="controller/regPuntos.php" method="post">
-                    <input type="hidden" name="nombre" value='<?php echo $dn->nombre;?>'>
-                    <input type="hidden" name="puntos" value='5'>
-                    <input type="submit" value="+5">
-                </form>
+                <input type="button" value="+5" onclick="regPuntos('<?php echo $nom ;?>', 5)">
             </td>
             
             <td>
-                <form action="controller/regPuntos.php" method="post">
-                    <input type="hidden" name="nombre" value='<?php echo $dn->nombre;?>'>
-                    <input type="hidden" name="puntos" value='10'>
-                    <input type="submit" value="+10 ">
-                </form>
+                <input type="button" value="+10" onclick="regPuntos('<?php echo $nom ;?>', 10)">
             </td>
         </tr>    
     <?php } ?>

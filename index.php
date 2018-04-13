@@ -80,6 +80,20 @@
                 loadTop();
             });
         }
+
+        function regPuntos(nombre, puntos){
+
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost/experience/controller/regPuntos.php',
+                data: {
+                    nombre: nombre,
+                    puntos: puntos
+                }
+            }).done(function (res) {
+                loadTop();
+            });
+        }
         </script>
     </head>
     <body>
