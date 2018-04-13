@@ -8,29 +8,50 @@
         <script src="js/jquery.min.js"></script>
 
         <script>
-        function getTop(){
+        function loadTop(){
             var num = $("#top").val();
-            num = parseInt(num);
-            console.log(num);
-            
+
+            if(num != ""){
+                num = parseInt(num);
+                
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost/experience/view/cargarNiveles.php',
+                    data: {
+                        top: num
+                    }
+                }).done(function (res) {
+                    $("#res").html(res);
+                });
+            }
+        }
+
+        function regPuntos(){
+            var nombre = $("#nombre").val();
+            var puntos = $("#puntos").val();
+
             $.ajax({
                 type: 'POST',
-                url: 'http://localhost/experience/view/getTablaNiveles.php',
+                url: 'http://localhost/experience/controller/regPuntos.php',
                 data: {
-                    top: num
+                    nombre: nombre,
+                    puntos: puntos
                 }
             }).done(function (res) {
-                $("#res").html(res);
+                $("#nombre").val("");
+                $("#puntos").val("");
+                $("#nombre").focus();
+                loadTop();
             });
         }
         </script>
     </head>
     <body>
-        <h1>Experience developer</h1>
-        <form action="controller/regPuntos.php" method="post">
-            <input list="nombres" name="nombre" placeholder="Nombre:" require>
-            <input type="number" name="puntos" placeholder="Puntos:" require>
-            <input type="submit" value="Asignar Puntos">
+        <h1>Developer Experience</h1>
+        <form>
+            <input list="nombres" id="nombre" placeholder="Nombre:" require>
+            <input type="number" id="puntos" placeholder="Puntos:" require>
+            <input type="button" value="Asignar Puntos" onclick="regPuntos()">
 
             <datalist id="nombres">
             <?php
@@ -47,7 +68,7 @@
 
         <a href="crearAlumno.php">Crear alumno</a>
         <input type="number" id="top" name="top" placeholder="Top:" require>
-        <button onclick="getTop()">Click</button>
+        <button onclick="loadTop()">Top</button>
 
         <div id="res"></div>
     </body>
