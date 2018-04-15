@@ -88,6 +88,8 @@
 
                 estado_nivel = parseInt(estado_nivel);
 
+                console.log("Estado Nivel: "+estado_nivel);
+
                 switch(estado_nivel){
                     case MANTUVO_NIVEL:
                         console.log("Mantuvo el nivel");
@@ -104,7 +106,6 @@
 
         /*Esta función se llama cuando presiono los botones pre establecidos.*/ 
         function regPuntos(nombre, puntos){
-            console.log("asdasd");
             $.ajax({
                 type: 'POST',
                 url: 'http://localhost/experience/controller/regPuntos.php',
@@ -112,8 +113,24 @@
                     nombre: nombre,
                     puntos: puntos
                 }
-            }).done(function (estadoNivel) {
+            }).done(function (estado_nivel) {
                 loadTop();
+
+                estado_nivel = parseInt(estado_nivel);
+
+                console.log("Estado Nivel: "+estado_nivel);
+
+                switch(estado_nivel){
+                    case MANTUVO_NIVEL:
+                        console.log("Mantuvo el nivel");
+                        break;
+                    case SUBIO_NIVEL:
+                        console.log("Subió el nivel");
+                        break;
+                    case BAJO_NIVEL:
+                        console.log("Bajó el nivel");    
+                        break;
+                }
             });
         }
         </script>
@@ -145,13 +162,5 @@
 
         <h3 id="titulo_top"></h3>
         <div id="res"></div>
-
-        <?php
-        require_once("model/Estado.php");
-
-        echo Estado::MANTUVO_NIVEL;
-        echo Estado::SUBIO_NIVEL;
-        echo Estado::BAJO_NIVEL;
-        ?>
     </body>
 </html>

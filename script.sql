@@ -21,17 +21,17 @@ BEGIN
     DECLARE dificultad INT;
     
     SET dificultad = 3;
-    SET nivel_actual = (SELECT FLOOR(LOG(3, puntos)) FROM alumno WHERE nombre = nom);
-    
+    SET nivel_actual = (SELECT FLOOR(LOG(dificultad, puntos)) FROM alumno WHERE nombre = nom);
     SET puntos_actual = (SELECT puntos FROM alumno WHERE nombre = nom);
     SET puntos_final = puntos_actual + pts;
     SET idAlumno = (SELECT id FROM alumno WHERE nombre = nom);
     
     UPDATE alumno SET puntos = puntos_final WHERE id = idAlumno;
     
-    SET nivel_final = (SELECT FLOOR(LOG(3, puntos)) FROM alumno WHERE nombre = nom);
+    SET nivel_final = (SELECT FLOOR(LOG(dificultad, puntos)) FROM alumno WHERE nombre = nom);
     
-    IF nivel_actual = nivel_final THEN
+    /*El nivel queda como null cuando es log(0) en base 3 --> dificultad*/
+    IF nivel_actual = nivel_final OR nivel_actual IS NULL THEN
 		SELECT 0 AS 'estado';
 	ELSEIF nivel_final > nivel_actual THEN
 		SELECT 1 AS 'estado';
@@ -84,11 +84,14 @@ END $$
 DELIMITER ; 
 -- drop procedure getTop;
 
-CALL addPuntos('Jose Donoso', -999999);
+CALL addPuntos('Marcelo Aranda', 1);
+SELECT * FROM alumno;
+
 CALL getTablaNiveles();
 CALL getTop(3);
 
 SELECT log(10,2)
+
 
 
 
