@@ -85,22 +85,7 @@
                 $("#puntos").val("");
                 $("#nombre").focus();
                 loadTop();
-
-                estado_nivel = parseInt(estado_nivel);
-
-                console.log("Estado Nivel: "+estado_nivel);
-
-                switch(estado_nivel){
-                    case MANTUVO_NIVEL:
-                        console.log("Mantuvo el nivel");
-                        break;
-                    case SUBIO_NIVEL:
-                        console.log("Subió el nivel");
-                        break;
-                    case BAJO_NIVEL:
-                        console.log("Bajó el nivel");    
-                        break;
-                }
+                procesarNivel(estado_nivel);
             });
         }
 
@@ -115,23 +100,41 @@
                 }
             }).done(function (estado_nivel) {
                 loadTop();
-
-                estado_nivel = parseInt(estado_nivel);
-
-                console.log("Estado Nivel: "+estado_nivel);
-
-                switch(estado_nivel){
-                    case MANTUVO_NIVEL:
-                        console.log("Mantuvo el nivel");
-                        break;
-                    case SUBIO_NIVEL:
-                        console.log("Subió el nivel");
-                        break;
-                    case BAJO_NIVEL:
-                        console.log("Bajó el nivel");    
-                        break;
-                }
+                procesarNivel(estado_nivel);
             });
+        }
+
+        function procesarNivel(res){
+            res = res.split("/");
+            
+            estado_nivel    = parseInt(res[0]);
+            puntos          = parseInt(res[1]);
+
+            switch(estado_nivel){
+                case MANTUVO_NIVEL:
+                    console.log("Mantuvo el nivel");
+
+                    if(puntos > 0){
+                        reproducir("media/point_up.mp3");
+                    }else{
+                        reproducir("media/point_down.wav");
+                    }
+
+                    break;
+                case SUBIO_NIVEL:
+                    console.log("Subió el nivel");
+                    reproducir("media/level_up.wav");
+                    break;
+                case BAJO_NIVEL:
+                    console.log("Bajó el nivel");    
+                    reproducir("media/level_down.ogg");
+                    break;
+            }
+        }
+
+        function reproducir(archivo){
+            var audio = new Audio(archivo);
+            audio.play();
         }
         </script>
     </head>

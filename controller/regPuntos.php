@@ -7,6 +7,6 @@ $d = new Data();
 
 $estado = $d->addPuntos($nombre, $puntos);
 
-echo $estado->estado;
+echo $estado->estado."/$puntos";
 
 /*header("location: ../index.php");*/

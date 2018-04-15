@@ -31,7 +31,12 @@ BEGIN
     SET nivel_final = (SELECT FLOOR(LOG(dificultad, puntos)) FROM alumno WHERE nombre = nom);
     
     /*El nivel queda como null cuando es log(0) en base 3 --> dificultad*/
-    IF nivel_actual = nivel_final OR nivel_actual IS NULL THEN
+    
+    IF nivel_actual IS NULL THEN
+		SET nivel_actual = 0;
+	END IF;
+    
+    IF nivel_actual = nivel_final THEN
 		SELECT 0 AS 'estado';
 	ELSEIF nivel_final > nivel_actual THEN
 		SELECT 1 AS 'estado';

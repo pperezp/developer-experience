@@ -4,9 +4,10 @@ require_once("../model/Data.php");
 $d = new Data();
 ?>
 
-<table border="1">
+<table border="0">
     <tr>
         <th colspan="3">(-)</th>
+        <th>Pos.</th>
         <th>Nombre</th>
         <th>Puntos</th>
         <th>Nivel</th>
@@ -21,6 +22,7 @@ $d = new Data();
         $lista = $d->getTablaNiveles();
     }
 
+    $pos = 1;
     foreach($lista as $dn){
         $nom = $dn->nombre;
         ?>
@@ -37,6 +39,8 @@ $d = new Data();
             <td>
                 <input type="button" value="-10" onclick="regPuntos('<?php echo $nom ;?>', -10)">
             </td>
+            <td><?php echo $pos.".-"; ?></td>
+            <?php $pos++;?>
             <td><?php echo $dn->nombre; ?></td>
             <td><?php echo $dn->puntos; ?></td>
             <td>
