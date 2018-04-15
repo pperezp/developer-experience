@@ -8,6 +8,12 @@
         <script src="js/jquery.min.js"></script>
 
         <script>
+        /*Defino las constantes para ver si subio o no de nivel*/
+        const MANTUVO_NIVEL  = 0;
+        const SUBIO_NIVEL    = 1;
+        const BAJO_NIVEL     = 2; 
+        /*Defino las constantes para ver si subio o no de nivel*/
+
         $(document).ready(function(){
             $("#puntos").keyup(function(event){
                 if(event.which == 13){ // si es enter
@@ -74,11 +80,25 @@
                     nombre: nombre,
                     puntos: puntos
                 }
-            }).done(function (res) {
+            }).done(function (estado_nivel) {
                 $("#nombre").val("");
                 $("#puntos").val("");
                 $("#nombre").focus();
                 loadTop();
+
+                estado_nivel = parseInt(estado_nivel);
+
+                switch(estado_nivel){
+                    case MANTUVO_NIVEL:
+                        console.log("Mantuvo el nivel");
+                        break;
+                    case SUBIO_NIVEL:
+                        console.log("Subió el nivel");
+                        break;
+                    case BAJO_NIVEL:
+                        console.log("Bajó el nivel");    
+                        break;
+                }
             });
         }
 
@@ -92,7 +112,7 @@
                     nombre: nombre,
                     puntos: puntos
                 }
-            }).done(function (res) {
+            }).done(function (estadoNivel) {
                 loadTop();
             });
         }
@@ -125,5 +145,13 @@
 
         <h3 id="titulo_top"></h3>
         <div id="res"></div>
+
+        <?php
+        require_once("model/Estado.php");
+
+        echo Estado::MANTUVO_NIVEL;
+        echo Estado::SUBIO_NIVEL;
+        echo Estado::BAJO_NIVEL;
+        ?>
     </body>
 </html>

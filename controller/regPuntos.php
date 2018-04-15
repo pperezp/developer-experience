@@ -5,6 +5,8 @@ $nombre = $_REQUEST["nombre"];
 $puntos = $_REQUEST["puntos"];
 $d = new Data();
 
-$d->addPuntos($nombre, $puntos);
+$estado = $d->addPuntos($nombre, $puntos);
 
-header("location: ../index.php");
+echo $estado->estado;
+
+/*header("location: ../index.php");*/

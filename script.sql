@@ -16,13 +16,30 @@ BEGIN
 	DECLARE puntos_actual INT;
     DECLARE puntos_final INT;
     DECLARE idAlumno INT;
+    DECLARE nivel_actual INT;
+    DECLARE nivel_final INT;
+    DECLARE dificultad INT;
+    
+    SET dificultad = 3;
+    SET nivel_actual = (SELECT FLOOR(LOG(3, puntos)) FROM alumno WHERE nombre = nom);
     
     SET puntos_actual = (SELECT puntos FROM alumno WHERE nombre = nom);
     SET puntos_final = puntos_actual + pts;
     SET idAlumno = (SELECT id FROM alumno WHERE nombre = nom);
     
     UPDATE alumno SET puntos = puntos_final WHERE id = idAlumno;
-    SELECT CONCAT('Puntos actual de ',CONCAT(nom, CONCAT(' :', puntos_final)));
+    
+    SET nivel_final = (SELECT FLOOR(LOG(3, puntos)) FROM alumno WHERE nombre = nom);
+    
+    IF nivel_actual = nivel_final THEN
+		SELECT 0 AS 'estado';
+	ELSEIF nivel_final > nivel_actual THEN
+		SELECT 1 AS 'estado';
+	ELSE
+		SELECT 2 AS 'estado';
+	END IF;
+	
+    /*SELECT CONCAT('Puntos actual de ',CONCAT(nom, CONCAT(' :', puntos_final)));*/
 END $$
 DELIMITER ;
  -- drop procedure addPuntos;
@@ -67,7 +84,7 @@ END $$
 DELIMITER ; 
 -- drop procedure getTop;
 
-CALL addPuntos('Jose Donoso', 1);
+CALL addPuntos('Jose Donoso', -999999);
 CALL getTablaNiveles();
 CALL getTop(3);
 

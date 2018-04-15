@@ -69,8 +69,17 @@ class Data{
 
     public function addPuntos($nombre, $puntos){
         $this->c->conectar();
-        $this->c->ejecutar("CALL addPuntos('$nombre', $puntos);");
+        $rs = $this->c->ejecutar("CALL addPuntos('$nombre', $puntos);");
+
+        $estado = null;
+
+        if($obj = $rs->fetch_object()){
+            $estado = $obj;
+        }
+
         $this->c->desconectar();
+        
+        return $estado;
     }
     
     public function getTablaNiveles(){
