@@ -5,6 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Experience</title>
+        <link rel="stylesheet" href="css/notifications.css">
+        <script src="js/notifications.js"></script>
 
         <!-- Bootstrap y jquery-->
         <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -91,7 +93,7 @@
                 $("#puntos").val("");
                 $("#nombre").focus();
                 loadTop();
-                procesarNivel(estado_nivel);
+                procesarNivel(nombre,estado_nivel);
             });
         }
 
@@ -106,11 +108,11 @@
                 }
             }).done(function (estado_nivel) {
                 loadTop();
-                procesarNivel(estado_nivel);
+                procesarNivel(nombre,estado_nivel);
             });
         }
 
-        function procesarNivel(res){
+        function procesarNivel(nombre,res){
             res = res.split("/");
             
             estado_nivel    = parseInt(res[0]);
@@ -122,18 +124,60 @@
 
                     if(puntos > 0){
                         reproducir("media/point_up.mp3");
+                        /*https://www.cssscript.com/demo/minimal-notification-popup-pure-javascript/*/
+                        window.createNotification({
+                            closeOnClick: true,
+                            displayCloseButton: false,
+                            positionClass: 'nfc-top-right',
+                            showDuration: 3500,
+                            theme: 'info'
+                        })({
+                            title: "Subiendo puntos!",
+                            message: nombre+" +"+puntos
+                        });
                     }else{
                         reproducir("media/point_down.wav");
+                        window.createNotification({
+                            closeOnClick: true,
+                            displayCloseButton: false,
+                            positionClass: 'nfc-top-right',
+                            showDuration: 3500,
+                            theme: 'warning'
+                        })({
+                            title: "Bajando puntos!",
+                            message: nombre+" -"+puntos
+                        });
                     }
 
                     break;
                 case SUBIO_NIVEL:
                     console.log("Subió el nivel");
                     reproducir("media/level_up.wav");
+
+                    window.createNotification({
+                        closeOnClick: true,
+                        displayCloseButton: false,
+                        positionClass: 'nfc-top-right',
+                        showDuration: 5500,
+                        theme: 'success'
+                    })({
+                        title: "Subió de nivel!",
+                        message: "¡"+nombre+" ha subido de nivel!"
+                    });
                     break;
                 case BAJO_NIVEL:
                     console.log("Bajó el nivel");    
                     reproducir("media/level_down.ogg");
+                    window.createNotification({
+                        closeOnClick: true,
+                        displayCloseButton: false,
+                        positionClass: 'nfc-top-right',
+                        showDuration: 5500,
+                        theme: 'error'
+                    })({
+                        title: "Bajó de nivel!",
+                        message: "¡"+nombre+" ha bajado de nivel!"
+                    });
                     break;
             }
         }
