@@ -5,6 +5,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Experience</title>
+        <!-- 
+            https://www.cssscript.com/demo/minimal-notification-popup-pure-javascript/
+            https://www.cssscript.com/minimal-notification-popup-pure-javascript/
+         -->
         <link rel="stylesheet" href="css/notifications.css">
         <script src="js/notifications.js"></script>
 
