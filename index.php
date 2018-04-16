@@ -5,7 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Experience</title>
+
+        <!-- Bootstrap y jquery-->
+        <link rel="stylesheet" href="css/bootstrap.min.css">
         <script src="js/jquery.min.js"></script>
+        <script src="js/popper.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <!-- Bootstrap y jquery-->
 
         <script>
         /*Defino las constantes para ver si subio o no de nivel*/
@@ -139,31 +145,56 @@
         </script>
     </head>
     <body>
-        <h1>Developer Experience</h1>
-        <form>
-            <input list="nombres" id="nombre" placeholder="Nombre:" require>
-            <input type="number"  id="puntos" placeholder="Puntos:" require>
-            <!-- <input type="button" value="Asignar Puntos" onclick="regPuntos()"> -->
+        <div class="container">
+            <div class="row p-3">
+                <div><h1>Developer Experience</h1></div>
+            </div>
+            
+            <div class="row">
+                <div class="col-12">
+                    <form>
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                <input class="form-control" list="nombres" id="nombre" placeholder="Nombre:" require>
+                            </div>
+                            <div class="col-md-6">
+                                <input class="form-control" type="number"  id="puntos" placeholder="Puntos:" require>
+                            </div>
+                        </div>
+                        
+                        <!-- <input type="button" value="Asignar Puntos" onclick="regPuntos()"> -->
 
-            <datalist id="nombres">
-            <?php
-                require_once("model/Data.php");
+                        <datalist id="nombres">
+                        <?php
+                            require_once("model/Data.php");
 
-                $d = new Data();
+                            $d = new Data();
 
-                foreach($d->getAlumnos() as $a){
-                    echo "<option value='".$a->getNombre()."'>";
-                }
-            ?>
-            </datalist>
-        </form>
-
-        <a href="crearAlumno.php">Crear alumno</a>
-        <br>
-        <input type="number" id="top" name="top" placeholder="Top:" require>
-        <!--<button onclick="loadTop()">Top</button>-->
-
-        <h3 id="titulo_top"></h3>
-        <div id="res"></div>
+                            foreach($d->getAlumnos() as $a){
+                                echo "<option value='".$a->getNombre()."'>";
+                            }
+                        ?>
+                        </datalist>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-3">
+                    <input class="form-control form-group" type="number" id="top" name="top" placeholder="Top:" require>
+                </div>
+                <div class="col-3">
+                    <button class="form-control btn btn-success" onclick="loadTop()">Top</button>
+                </div>
+                <div class="col-6">
+                    <a class="form-control btn btn-info" href="crearAlumno.php">Crear alumno</a>
+                </div>
+            </div>
+            
+            <div class="p-4">
+                <h3 id="titulo_top"></h3>
+                <div id="res"></div>
+            </div>
+        </div>
     </body>
 </html>

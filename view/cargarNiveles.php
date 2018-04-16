@@ -4,15 +4,16 @@ require_once("../model/Data.php");
 $d = new Data();
 ?>
 
-<table border="0">
+<table class="table table-striped">
     <tr>
-        <th colspan="3">(-)</th>
-        <th>Pos.</th>
-        <th>Nombre</th>
-        <th>Puntos</th>
-        <th>Nivel</th>
-        <th>Progreso</th>
-        <th colspan="3">(+)</th>
+        <!--<th colspan="3">(-)</th> -->
+        <th style="width: 5%">Pos.</th>
+        <th style="width: 20%">Nombre</th>
+        <!-- <th>Puntos</th> -->
+        <th style="width: 10%">Nivel</th>
+        <th style="width: 35%">Progreso</th>
+        <th style="width: 30%">Acciones</th>
+        <!--<th colspan="3">(+)</th>-->
     </tr>
 
     <?php 
@@ -26,42 +27,68 @@ $d = new Data();
     foreach($lista as $dn){
         $nom = $dn->nombre;
         ?>
-        <tr>
-            <td>
-            <!-- La función regPuntos está actualmente en index.php-->
-                <input type="button" value="-1" onclick="regPuntos('<?php echo $nom ;?>', -1)">
-            </td>
-
-            <td>
-                <input type="button" value="-5" onclick="regPuntos('<?php echo $nom ;?>', -5)">
-            </td>
+        <tr 
+        <?php 
+        if($pos >= 1 && $pos <= 3){
+            echo "class='bg-success text-white'";
+        }
+        ?>>
             
-            <td>
-                <input type="button" value="-10" onclick="regPuntos('<?php echo $nom ;?>', -10)">
-            </td>
             <td><?php echo $pos.".-"; ?></td>
-            <?php $pos++;?>
-            <td><?php echo $dn->nombre; ?></td>
-            <td><?php echo $dn->puntos; ?></td>
-            <td>
-                Nivel <?php echo ($dn->nivel == null?0:$dn->nivel); ?>
-            </td>
-
-            <td>
-                <progress value="<?php echo ($dn->progress == null?0:$dn->progress); ?>" max="1"></progress>
-            </td>
-
-            <td>
-                <input type="button" value="+1" onclick="regPuntos('<?php echo $nom ;?>', 1)">
-            </td>
-
-            <td>
-                <input type="button" value="+5" onclick="regPuntos('<?php echo $nom ;?>', 5)">
-            </td>
             
+            <td><?php echo $dn->nombre; ?></td>
+            <!-- <td><?php echo $dn->puntos; ?></td>-->
             <td>
-                <input type="button" value="+10" onclick="regPuntos('<?php echo $nom ;?>', 10)">
+                Nvl. <?php echo ($dn->nivel == null?0:$dn->nivel); ?>
             </td>
-        </tr>    
+
+            <td>
+                <div class="progress">
+                    <?php
+                    $progreso = ($dn->progress == null ? 0 : ($dn->progress * 100));
+                    ?>
+                    <div 
+                        class="progress-bar bg-info" 
+                        role="progressbar" 
+                        style="width: <?php echo $progreso; ?>%;" 
+                        aria-valuenow="<?php echo $progreso; ?>" 
+                        aria-valuemin="0" 
+                        aria-valuemax="100">
+                            <?php echo $progreso; ?>%
+                    </div>
+                    
+                </div>
+                <?php echo $dn->puntos; ?> puntos
+                <!-- <progress class="progress progress-bar" role="progressbar" value="<?php echo ($dn->progress == null?0:$dn->progress); ?>" max="1"></progress>-->
+            </td>
+
+            <td>
+                <div class="row">
+                    <div class="col-5">
+                        <select class="form-control" name="" id="cboPuntos_<?php echo $pos; ?>">
+                            <option value="1">+1</option>
+                            <option value="5">+5</option>
+                            <option value="10">+10</option>
+                            <option value="-1">-1</option>
+                            <option value="-5">-5</option>
+                            <option value="-10">-10</option>
+                        </select>
+                    </div>
+                    <div class="col-7">
+                        <button 
+                            <?php 
+                            if($pos >= 1 && $pos <= 3){
+                                echo " class='btn btn-info form-control' ";
+                            }else{
+                                echo " class='btn btn-success form-control' ";
+                            }
+                            ?>
+        
+                            onclick="regPuntos('<?php echo $nom ;?>', $('#cboPuntos_<?php echo $pos; ?>').val())">Asignar</button>
+                    </div>
+                </div>
+            </td>
+        </tr>   
+        <?php $pos++;?>
     <?php } ?>
 </table>
