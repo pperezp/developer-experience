@@ -195,7 +195,7 @@
     <body>
         <div class="container">
             <div class="row p-3">
-                <div><h1>Developer Experience</h1></div>
+                <h1>Developer Experience</h1>
             </div>
             
             <div class="row">

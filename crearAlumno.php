@@ -30,10 +30,25 @@
                 }
             });
         });
-        </script>
+        </script><menu type="context"></menu>
     </head>
     <body>
-        <input type="text" name="nombre" id="nombre" placeholder="Nombre alumno:">
-        <a href="index.php">Volver</a>
+        <div class="container">
+            <div class="row p-3">
+                <h1>Developer Experience</h1>
+            </div>
+            
+            <div class="row form-group">
+                <div class="col-6">
+                    <input class="form-control" type="text" name="nombre" id="nombre" placeholder="Nombre alumno:">
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-3">
+                    <a class="form-control btn btn-info" href="index.php">Volver</a>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
