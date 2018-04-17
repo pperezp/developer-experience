@@ -18,17 +18,15 @@ BEGIN
     DECLARE idAlumno INT;
     DECLARE nivel_actual INT;
     DECLARE nivel_final INT;
-    DECLARE dificultad INT;
     
-    SET dificultad = 3;
-    SET nivel_actual = (SELECT FLOOR(LOG(dificultad, puntos)) FROM alumno WHERE nombre = nom);
+    SET nivel_actual = (SELECT FLOOR(SQRT(puntos)*0.08) FROM alumno WHERE nombre = nom);
     SET puntos_actual = (SELECT puntos FROM alumno WHERE nombre = nom);
     SET puntos_final = puntos_actual + pts;
     SET idAlumno = (SELECT id FROM alumno WHERE nombre = nom);
     
     UPDATE alumno SET puntos = puntos_final WHERE id = idAlumno;
     
-    SET nivel_final = (SELECT FLOOR(LOG(dificultad, puntos)) FROM alumno WHERE nombre = nom);
+    SET nivel_final = (SELECT FLOOR(SQRT(puntos)*0.08) FROM alumno WHERE nombre = nom);
     
     /*El nivel queda como null cuando es log(0) en base 3 --> dificultad*/
     
@@ -57,8 +55,8 @@ BEGIN
 	SELECT 
 		nombre, 
 		puntos, 
-		FLOOR(LOG(dificultad, puntos)) AS 'nivel',
-        ROUND(LOG(dificultad, puntos),2) - FLOOR(ROUND(LOG(dificultad, puntos),2)) AS 'progress' -- Progreso en porcentaje para pintar en HTML
+		FLOOR(SQRT(puntos)*0.08) AS 'nivel',
+        ROUND(SQRT(puntos)*0.08 ,2) - FLOOR(ROUND(SQRT(puntos)*0.08,2)) AS 'progress' -- Progreso en porcentaje para pintar en HTML
 	FROM 
 		alumno 
 	/*WHERE 
@@ -77,8 +75,8 @@ BEGIN
 	SELECT 
 		nombre, 
 		puntos, 
-		FLOOR(LOG(dificultad, puntos)) AS 'nivel',
-        ROUND(LOG(dificultad, puntos),2) - FLOOR(ROUND(LOG(dificultad, puntos),2)) AS 'progress' -- Progreso en porcentaje para pintar en HTML
+		FLOOR(SQRT(puntos)*0.08) AS 'nivel',
+        ROUND(SQRT(puntos)*0.08,2) - FLOOR(ROUND(SQRT(puntos)*0.08 ,2)) AS 'progress' -- Progreso en porcentaje para pintar en HTML
 	FROM 
 		alumno 
 	/*WHERE 
@@ -89,7 +87,7 @@ END $$
 DELIMITER ; 
 -- drop procedure getTop;
 
-CALL addPuntos('Marcelo Aranda', 1);
+CALL addPuntos('Marcelo Aranda', 30);
 SELECT * FROM alumno;
 
 CALL getTablaNiveles();
