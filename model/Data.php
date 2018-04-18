@@ -9,6 +9,21 @@ class Data{
         $this->c = new Conexion("experience");
     }
 
+    public function getUsuario($rut){
+        $this->c->conectar();
+        $rs = $this->c->ejecutar("SELECT * FROM usuario WHERE rut = '$rut'");
+
+        $usuario = null;
+
+        if($obj = $rs->fetch_object()){
+            $usuario = $obj;
+        }
+
+        $this->c->desconectar();
+
+        return $usuario;
+    }
+
     public function getAlumnos(){
         $this->c->conectar();
 
