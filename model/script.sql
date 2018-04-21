@@ -48,8 +48,11 @@ BEGIN
     -- SELECT nivel_actual, nivel_final;
 
     IF puntos_final < 0 THEN -- si puntaje final es negativo
-        IF puntos_final > puntos_actual THEN -- Le di puntos pero aún es negativo
-            SELECT 3 AS 'estado';
+        -- Si bajé abruptamente de niveles
+        IF nivel_actual > 0 THEN -- si el nivel era mayor a 0
+            SELECT 2 AS 'estado'; -- BAJO_NIVEL
+        ELSEIF puntos_final > puntos_actual THEN
+            SELECT 3 AS 'estado';           -- Le di puntos pero aún es negativo
         ELSE
             SELECT 4 AS 'estado';           -- le quite puntos pero sigue negativo
         END IF;
