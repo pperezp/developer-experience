@@ -179,8 +179,6 @@ if(!isset($_SESSION["user"])){
                             title: "Subiendo puntos!",
                             message: nombre+" +"+puntos
                         });
-                    }else if(puntos == 0){
-                        // cagué
                     }else{
                         reproducir("../media/point_down.wav");
                         window.createNotification({
