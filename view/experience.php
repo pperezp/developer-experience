@@ -31,6 +31,8 @@ if(!isset($_SESSION["user"])){
         const MANTUVO_NIVEL  = 0;
         const SUBIO_NIVEL    = 1;
         const BAJO_NIVEL     = 2; 
+        const SUMA_NEGATIVO  = 3; // Le di puntos pero sigue en puntaje negativo
+        const RESTA_NEGATIVO = 4; // Le resto puntos pero sigue en puntaje negativo
         /*Defino las constantes para ver si subio o no de nivel*/
 
         $(document).ready(function(){
@@ -130,6 +132,37 @@ if(!isset($_SESSION["user"])){
             puntos          = parseInt(res[1]);
 
             switch(estado_nivel){
+                case SUMA_NEGATIVO:
+                    console.log("Le di puntos, pero sigue negativo");
+                    reproducir("../media/point_up.mp3");
+                    /*https://www.cssscript.com/demo/minimal-notification-popup-pure-javascript/*/
+                    window.createNotification({
+                        closeOnClick: true,
+                        displayCloseButton: false,
+                        positionClass: 'nfc-top-right',
+                        showDuration: 3500,
+                        theme: 'info'
+                    })({
+                        title: "Subiendo puntos!",
+                        message: nombre+" +"+puntos
+                    });
+                    break;
+
+                case RESTA_NEGATIVO:
+                    console.log("Le reste puntos, pero sigue negativo");
+                    reproducir("../media/point_down.wav");
+                    window.createNotification({
+                        closeOnClick: true,
+                        displayCloseButton: false,
+                        positionClass: 'nfc-top-right',
+                        showDuration: 3500,
+                        theme: 'warning'
+                    })({
+                        title: "Bajando puntos!",
+                        message: nombre+" -"+puntos
+                    });
+                    break;
+
                 case MANTUVO_NIVEL:
                     console.log("Mantuvo el nivel");
 

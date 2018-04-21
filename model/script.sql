@@ -36,21 +36,36 @@ BEGIN
     UPDATE alumno SET puntos = puntos_final WHERE id = idAlumno;
     
     SET nivel_final = (SELECT FLOOR(SQRT(puntos)*dificultad) FROM alumno WHERE nombre = nom);
-    
-    /*El nivel queda como null cuando es log(0) en base 3 --> dificultad*/
-    
-    IF nivel_actual IS NULL THEN
-		SET nivel_actual = 0;
-	END IF;
-    
-    IF nivel_actual = nivel_final THEN
-		SELECT 0 AS 'estado';
+
+    /*
+    const MANTUVO_NIVEL  = 0;
+    const SUBIO_NIVEL    = 1;
+    const BAJO_NIVEL     = 2;
+    const SUMA_NEGATIVO  = 3;
+    const RESTA_NEGATIVO = 4;
+    */
+
+    -- SELECT nivel_actual, nivel_final;
+
+    IF puntos_final < 0 THEN -- si puntaje final es negativo
+        IF puntos_final > puntos_actual THEN -- Le di puntos pero aún es negativo
+            SELECT 3 AS 'estado';
+        ELSE
+            SELECT 4 AS 'estado';           -- le quite puntos pero sigue negativo
+        END IF;
+    ELSEIF nivel_actual IS NULL THEN        -- Esto ocurre cuando paso de un puntaje negativo a uno positivo
+        IF nivel_final = 0 THEN
+            SELECT 0 AS 'estado'; -- MANTUVO_NIVEL
+        ELSE
+            SELECT 1 AS 'estado'; -- SUBIO_NIVEL
+        END IF;
+    ELSEIF nivel_actual = nivel_final THEN
+		SELECT 0 AS 'estado'; -- MANTUVO_NIVEL
 	ELSEIF nivel_final > nivel_actual THEN
-		SELECT 1 AS 'estado';
+		SELECT 1 AS 'estado'; -- SUBIO_NIVEL
 	ELSE
-		SELECT 2 AS 'estado';
+		SELECT 2 AS 'estado'; -- BAJO_NIVEL
 	END IF;
-	
     /*SELECT CONCAT('Puntos actual de ',CONCAT(nom, CONCAT(' :', puntos_final)));*/
 END $$
 DELIMITER ;
@@ -104,10 +119,7 @@ CALL addPuntos('Marcelo Aranda', 30);
 SELECT * FROM alumno;
 
 CALL getTablaNiveles();
-CALL getTop(3);
+CALL getTop(113);
 
-SELECT log(10,2)
-
-
-
-
+SELECT * from alumno where nombre like '%test%';
+CALL addPuntos('test', 100);

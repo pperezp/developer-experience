@@ -46,7 +46,7 @@
             
             <div class="row">
                 <div class="col-3">
-                    <a class="form-control btn btn-info" href="index.php">Volver</a>
+                    <a class="form-control btn btn-info" href="experience.php">Volver</a>
                 </div>
             </div>
         </div>
