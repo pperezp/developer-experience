@@ -3,7 +3,7 @@ CREATE DATABASE experience;
 USE experience;
 
 CREATE TABLE alumno(
-    id INT AUTO_INCREMENT,
+	id INT AUTO_INCREMENT,
     nombre VARCHAR(100),
     puntos int,
     PRIMARY KEY(id)
@@ -25,15 +25,17 @@ BEGIN
     DECLARE idAlumno INT;
     DECLARE nivel_actual INT;
     DECLARE nivel_final INT;
-    
-    SET nivel_actual = (SELECT FLOOR(SQRT(puntos)*0.08) FROM alumno WHERE nombre = nom);
+	DECLARE dificultad FLOAT;
+
+	SET dificultad = 0.3;
+    SET nivel_actual = (SELECT FLOOR(SQRT(puntos)*dificultad) FROM alumno WHERE nombre = nom);
     SET puntos_actual = (SELECT puntos FROM alumno WHERE nombre = nom);
     SET puntos_final = puntos_actual + pts;
     SET idAlumno = (SELECT id FROM alumno WHERE nombre = nom);
     
     UPDATE alumno SET puntos = puntos_final WHERE id = idAlumno;
     
-    SET nivel_final = (SELECT FLOOR(SQRT(puntos)*0.08) FROM alumno WHERE nombre = nom);
+    SET nivel_final = (SELECT FLOOR(SQRT(puntos)*dificultad) FROM alumno WHERE nombre = nom);
     
     /*El nivel queda como null cuando es log(0) en base 3 --> dificultad*/
     
@@ -57,13 +59,15 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE getTablaNiveles()
 BEGIN
-	DECLARE dificultad INT;
-    SET dificultad = 3; -- base del logaritmo
-	SELECT 
+	DECLARE dificultad FLOAT;
+
+	SET dificultad = 0.3;
+
+	SELECT
 		nombre, 
 		puntos, 
-		FLOOR(SQRT(puntos)*0.08) AS 'nivel',
-        ROUND(SQRT(puntos)*0.08 ,2) - FLOOR(ROUND(SQRT(puntos)*0.08,2)) AS 'progress' -- Progreso en porcentaje para pintar en HTML
+		FLOOR(SQRT(puntos)*dificultad) AS 'nivel',
+        ROUND(SQRT(puntos)*dificultad ,2) - FLOOR(ROUND(SQRT(puntos)*dificultad,2)) AS 'progress' -- Progreso en porcentaje para pintar en HTML
 	FROM 
 		alumno 
 	/*WHERE 
@@ -77,13 +81,15 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE getTop(top INT)
 BEGIN
-	DECLARE dificultad INT;
-    SET dificultad = 3; -- base del logaritmo
+	DECLARE dificultad FLOAT;
+
+	SET dificultad = 0.3;
+
 	SELECT 
 		nombre, 
 		puntos, 
-		FLOOR(SQRT(puntos)*0.08) AS 'nivel',
-        ROUND(SQRT(puntos)*0.08,2) - FLOOR(ROUND(SQRT(puntos)*0.08 ,2)) AS 'progress' -- Progreso en porcentaje para pintar en HTML
+		FLOOR(SQRT(puntos)*dificultad) AS 'nivel',
+        ROUND(SQRT(puntos)*dificultad,2) - FLOOR(ROUND(SQRT(puntos)*dificultad ,2)) AS 'progress' -- Progreso en porcentaje para pintar en HTML
 	FROM 
 		alumno 
 	/*WHERE 
