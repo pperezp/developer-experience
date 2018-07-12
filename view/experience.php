@@ -1,7 +1,7 @@
 <?php
 session_start();
 if(!isset($_SESSION["user"])){
-    header("location: ../view/index.php?m=2");
+    header("location: ../view/iniciar.php?m=2");
 }else{
     $user = $_SESSION["user"];
 }

@@ -12,6 +12,6 @@ if($user != null){
 
     header("location: ../view/experience.php");
 }else{
-    header("location: ../view/index.php?m=1");
+    header("location: ../view/iniciar.php?m=1");
 }
 

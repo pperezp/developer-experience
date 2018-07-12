@@ -4,8 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Document</title>
-
+        <title>Experience</title>
         <!-- 
             https://www.cssscript.com/demo/minimal-notification-popup-pure-javascript/
             https://www.cssscript.com/minimal-notification-popup-pure-javascript/
@@ -19,31 +18,37 @@
         <script src="../js/popper.min.js"></script>
         <script src="../js/bootstrap.min.js"></script>
         <!-- Bootstrap y jquery-->
-    </head>
-    <body onload="$('#rut').focus()">
-        
-        <div class="container">
-            <h1 class="p-2">Iniciar</h1>
-            <form action="../controller/iniciarSesion.php" method="post" class="form-group">
-                <div class="row">
-                    <div class="col-md-6">
-                        <input class="form-control" type="password" name="rut" id="rut" placeholder="Rut:">
-                    </div>
-                    <?php
-                    if(isset($_REQUEST["m"])){
-                        $m = $_REQUEST["m"];
 
-                        if($m == 1){
-                            echo "<div class='form-control alert alert-danger col-md-6'>Rut no encontrado!</div>";
-                        }else if($m == 2){
-                            echo "<div class='form-control alert alert-warning col-md-6'>La sesión expiró</div>";
-                        }
-                    }
-                    ?>
-                </div>
-                
-            </form>
+        <script>
+        $(document).ready(function(){
+            loadTop();
+        });
+
+        function loadTop(){
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost/experience/view/listadoAlumnos.php',
+                data: {
+                    top: 200
+                }
+            }).done(function (res) {
+                $("#titulo_top").html("Top developers");
+                $("#res").html(res);
+            });
+        }
+
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row p-3">
+                <h1 class="col-6">Developer Experience</h1>
+            </div>
             
+            <div class="p-4">
+                <h3 id="titulo_top"></h3>
+                <div id="res"></div>
+            </div>
         </div>
     </body>
 </html>
