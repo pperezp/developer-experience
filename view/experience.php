@@ -2,6 +2,8 @@
 session_start();
 if(!isset($_SESSION["user"])){
     header("location: ../view/index.php?m=2");
+}else{
+    $user = $_SESSION["user"];
 }
 ?>
 
@@ -236,12 +238,14 @@ if(!isset($_SESSION["user"])){
         <div class="container">
             <div class="row p-3">
                 <h1 class="col-6">Developer Experience</h1>
+                
                 <div class="col-4"></div>
                 <div class="col-2">
                     <form action="../controller/cerrarSesion.php" >
                         <input type="submit" value="Salir" class="btn btn-danger">
                     </form>
                 </div>
+                <h6><?php echo $user->nombre;?></h6>
             </div>
             
             <div class="row">

@@ -15,5 +15,5 @@ CREATE TABLE usuario(
 	PRIMARY KEY(rut)
 ); -- SELECT * FROM usuario;
 
-INSERT INTO usuario VALUES(NULL, '16828943','Patricio Pérez Pinto');
+INSERT INTO usuario VALUES('16828943','Patricio Pérez Pinto');
 

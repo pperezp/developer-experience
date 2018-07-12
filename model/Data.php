@@ -11,7 +11,20 @@ class Data{
 
     public function getUsuario($rut){
         $this->c->conectar();
-        $rs = $this->c->ejecutar("SELECT * FROM usuario WHERE rut = '$rut'");
+
+
+        // EL objeto mysql de la clase Conexión, lo dejé público
+        // ----------------------------- PREAPARE STATEMENT -------------------------------
+        $sentencia = $this->c->mysql->prepare("SELECT * FROM usuario WHERE rut = ?");
+        // i para enteros y s para cadenas
+        $sentencia->bind_param("s", $rut);
+
+        $sentencia->execute();
+        $rs = $sentencia->get_result();
+        $sentencia->close();
+        // ----------------------------- PREAPARE STATEMENT --------------------------------
+
+
 
         $usuario = null;
 
@@ -20,7 +33,7 @@ class Data{
         }
 
         $this->c->desconectar();
-
+        
         return $usuario;
     }
 
@@ -55,7 +68,21 @@ class Data{
 
         $alumnos = array();
 
-        $rs = $this->c->ejecutar("SELECT * FROM alumno WHERE nombre LIKE '%$filtro%'");
+
+        // EL objeto mysql de la clase Conexión, lo dejé público
+        // ----------------------------- PREAPARE STATEMENT -------------------------------
+        $sentencia = $this->c->mysql->prepare("SELECT * FROM alumno WHERE nombre LIKE ?");
+        // i para enteros y s para cadenas
+        $sentencia->bind_param("s", "'%$filtro%'");
+
+        $sentencia->execute();
+        $rs = $sentencia->get_result();
+        $sentencia->close();
+        // ----------------------------- PREAPARE STATEMENT --------------------------------
+
+
+
+        //$rs = $this->c->ejecutar("SELECT * FROM alumno WHERE nombre LIKE '%$filtro%'");
 
         while($obj = $rs->fetch_array()){
             $id = $obj[0];

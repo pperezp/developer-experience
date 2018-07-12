@@ -102,6 +102,25 @@ DELIMITER ;
 -- drop procedure getTop;
 
 
+/*
+DELIMITER $$
+CREATE FUNCTION isUsuario(rut_usu VARCHAR(12)) RETURNS BOOLEAN
+BEGIN 
+	DECLARE nombre VARCHAR(100);
+    
+    SET nombre = (SELECT nombre FROM usuario WHERE rut = rut_usu);
+    
+    IF nombre != '' THEN 
+		RETURN TRUE;
+	ELSE
+		RETURN FALSE;
+    END IF;
+END $$
+DELIMITER ; 
+
+DROP FUNCTION isUsuario;*/
+
+
 CALL addPuntos('Marcelo Aranda', 30);
 CALL getTablaNiveles();
 CALL getTop(113);

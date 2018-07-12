@@ -1,6 +1,6 @@
 <?php
 class Conexion{
-    private $mysql;
+    public $mysql;
     private $bdName;
     private $user;
     private $pass;
@@ -8,7 +8,7 @@ class Conexion{
     public function __construct($bdName){
         $this->bdName = $bdName;
         $this->user = "root";
-        $this->pass = "123456";
+        $this->pass = "";
     }
 
     public function conectar(){
